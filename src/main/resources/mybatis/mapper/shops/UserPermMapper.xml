@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserPermMapper">
+
+    <!--查询用户的权限-->
+    <select id="LookPermsByUserid" resultType="java.lang.String" parameterType="java.lang.Integer">
+      select perms from user_perm where roleid=#{roleid}
+    </select>
+</mapper>

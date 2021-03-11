@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.FriendsMapper">
+
+  <!-- 添加好友 -->
+  <insert id="insertFriend" parameterType="com.entity.chat.Friends">
+    insert into friends (id,userid,fuserid) values (#{id},#{userid},#{fuserid})
+  </insert>
+  <!-- 判断双方是否是好友 -->
+  <select id="JustTwoUserIsFriend" resultType="java.lang.Integer" parameterType="com.entity.chat.Friends">
+    select id,userid,fuserid from friends where userid=#{userid} and fuserid=#{fuserid}
+  </select>
+  <!-- 查询用户的好友列表 -->
+  <select id="LookUserFriend" resultType="com.entity.UserInfo" parameterType="java.lang.String">
+    select userid as id,username,uimage as avatar,sign,status from user_info where userid in(select fuserid from friends where userid=#{userid})
+  </select>
+  <!-- 查询用户的信息 -->
+  <select id="LookUserMine" resultType="com.entity.UserInfo" parameterType="java.lang.String">
+    select userid as id,username,uimage as avatar,sign,status from user_info where userid=#{userid}
+  </select>
+</mapper>

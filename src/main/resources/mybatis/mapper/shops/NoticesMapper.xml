@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.NoticesMapper">
+
+    <!-- 开启二级缓存 -->
+<!--    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+
+    <!-- 发出通知消息 -->
+    <insert id="insertNotices" parameterType="com.entity.Notices">
+        insert into notices (id,userid,whys,tpname) values (#{id},#{userid},#{whys},#{tpname})
+    </insert>
+    <!-- 用户已读通知消息 -->
+    <update id="updateNoticesById" parameterType="java.lang.String">
+        update notices set isread=1 where id=#{id}
+    </update>
+    <!-- 查询前10条通知 -->
+    <select id="queryNotices" resultType="com.entity.Notices">
+        select id,tpname,whys,isread,nttime,latest from notices where userid=#{userid} order by nttime desc limit 0,10
+    </select>
+    <!-- 取消新通知标志 -->
+    <update id="CancelLatest" parameterType="java.lang.String">
+        update notices set latest=2 where userid=#{userid}
+    </update>
+    <!-- 分页查询用户所有通知消息 -->
+    <select id="queryAllNotices" resultType="com.entity.Notices">
+        select id,tpname,whys,isread,nttime from notices where userid=#{userid} order by nttime desc limit #{page},#{count}
+    </select>
+    <!-- 查询用户所有通知消息的数量 -->
+    <select id="queryNoticesCount" resultType="java.lang.Integer">
+        select count(*) from notices where userid=#{userid}
+    </select>
+</mapper>

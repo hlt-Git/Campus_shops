@@ -1,0 +1,24 @@
+/*修改滚动条样式*/
+div::-webkit-scrollbar{
+    width:8px;
+    height:10px;
+    /**/
+}
+div::-webkit-scrollbar-track{
+    background: rgb(239, 239, 239);
+    border-radius:2px;
+}
+div::-webkit-scrollbar-thumb{
+    background: #38B87D;
+    border-radius:10px;
+}
+div::-webkit-scrollbar-thumb:hover{
+    background: #333;
+}
+div::-webkit-scrollbar-corner{
+    background: #179a16;
+}
+
+.collectstu{
+    background-color: #3AB87E;
+}

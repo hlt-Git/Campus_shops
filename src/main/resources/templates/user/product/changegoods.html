@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/userInfo/relgoods.css}"/>
+    <script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/userInfo/ckplayer.js}"></script>
+    <title>校园二手交易商城 | 修改商品</title>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var mainimgs=[[${goods.image}]];
+        var videourls=[[${goods.videourl}]];
+        var otherimages=[[${otherimg}]];
+        var commid=[[${goods.commid}]];
+    </script>
+</head>
+<body>
+<form class="layui-form" id="goodsform" style="margin-top: 10px">
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>商品名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="commname" lay-verify="required" autocomplete="off" placeholder="请输入商品名称"
+                   class="layui-input" th:value="${goods.commname}">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label"><span style="color: red">*</span>商品描述</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入商品描述(品牌型号，新旧程度，入手渠道，转手原因...)" name="commdesc" lay-verify="required" autocomplete="off"
+                      class="layui-textarea" th:text="${goods.commdesc}"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品视频</label>
+        <div class="layui-inline">
+            <button type="button" class="layui-btn" id="test1">上传视频</button>
+        </div>
+    </div>
+    <div class="videosamplex" style="width:600px;height:400px;margin-left:100px;margin-bottom:15px">
+        <video id="videoplayer"></video>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">商品原价</label>
+        <div class="layui-input-block">
+            <input type="number" name="orimoney" autocomplete="off" placeholder="请输入商品原价"
+                   class="layui-input" th:value="${goods.orimoney}">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label"><span style="color: red">*</span>商品售价</label>
+        <div class="layui-input-block">
+            <input type="number" name="thinkmoney" lay-verify="required" autocomplete="off" placeholder="请输入商品售价"
+                   class="layui-input" th:value="${goods.thinkmoney}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>商品类别</label>
+        <div class="layui-input-block">
+            <select name="category" lay-filter="required">
+                <option value="3C数码" th:if="${goods.category}=='3C数码'" selected="">3C数码</option>
+                <option value="3C数码" th:if="${goods.category}!='3C数码'">3C数码</option>
+
+                <option value="书籍" th:if="${goods.category}=='书籍'" selected="">书籍</option>
+                <option value="书籍" th:if="${goods.category}!='书籍'">书籍</option>
+
+                <option value="生活用品" th:if="${goods.category}=='生活用品'" selected="">生活用品</option>
+                <option value="生活用品" th:if="${goods.category}!='生活用品'">生活用品</option>
+
+                <option value="服饰" th:if="${goods.category}=='服饰'" selected="">服饰</option>
+                <option value="服饰" th:if="${goods.category}!='服饰'">服饰</option>
+
+                <option value="美妆" th:if="${goods.category}=='美妆'" selected="">美妆</option>
+                <option value="美妆" th:if="${goods.category}!='美妆'">美妆</option>
+
+                <option value="出行" th:if="${goods.category}=='出行'" selected="">出行</option>
+                <option value="出行" th:if="${goods.category}!='出行'">出行</option>
+
+                <option value="其他" th:if="${goods.category}=='其他'" selected="">其他</option>
+                <option value="其他" th:if="${goods.category}!='其他'">其他</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>常用选项</label>
+        <div class="layui-input-block">
+            <input type="radio" name="common" value="不议价" title="不议价" th:if="${goods.common}=='不议价'" checked="">
+            <input type="radio" name="common" value="不议价" title="不议价" th:if="${goods.common}!='不议价'">
+
+            <input type="radio" name="common" value="可小刀" title="可小刀" th:if="${goods.common}=='可小刀'" checked="">
+            <input type="radio" name="common" value="可小刀" title="可小刀" th:if="${goods.common}!='可小刀'">
+
+            <input type="radio" name="common2" value="可送货" title="可送货" th:if="${goods.common2}=='可送货'" checked="">
+            <input type="radio" name="common2" value="可送货" title="可送货" th:if="${goods.common2}!='可送货'">
+
+            <input type="radio" name="common2" value="仅自提" title="仅自提" th:if="${goods.common2}=='仅自提'" checked="">
+            <input type="radio" name="common2" value="仅自提" title="仅自提" th:if="${goods.common2}!='仅自提'">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>商品主图</label>
+        <div class="layui-inline">
+            <button type="button" class="layui-btn" id="test2">上传主图</button>
+        </div>
+    </div>
+    <div id="mainimage" style="margin-left:100px;margin-bottom:10px">
+        <img :src="mainimg" style="width:300px;height:200px;cursor: pointer" id="imageurl"
+             @click="openimg(mainimg)">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>商品其他图</label>
+        <div class="layui-inline">
+            <button type="button" class="layui-btn" id="test3">上传其他图（最多3张）</button>
+        </div>
+    </div>
+    <div id="otherimages" style="margin-top:0px;margin-left:100px;margin-bottom:10px">
+        <div class="imgDiv" v-for="(img,index) in listimages"
+             :key="index" :id="'img'+index" @mouseover="mouseOver(index)" @mouseleave="mouseLeave(index)">
+            <img :src="img.imgsrc" style="width:300px;height:200px;cursor: pointer"
+                 @click="openimg(img.imgsrc)">
+            <img th:src="@{/static/images/close.png}" class="delete"
+                 @click="delimage(index)" :id="'del'+index" style="cursor: pointer">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"></label>
+        <div class="layui-input-block" style="color:#C62F2F">
+            <p>温馨提示：请勿发布涉及政治、广告、营销、违反国家法律法规等商品。</p>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" id="demo1" lay-filter="demo1">提交修改</button>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/userInfo/changegoods.js}"></script>
+</html>

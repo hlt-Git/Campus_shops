@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ReplyMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--插入回复-->
+    <insert id="insetReply" parameterType="com.entity.Reply">
+        insert into reply(rid,cid,commid,cuserid,spuserid,recontent,ruserid) values (#{rid},#{cid},#{commid},#{cuserid},#{spuserid},#{recontent},#{ruserid})
+    </insert>
+    <!--查询回复-->
+    <select id="queryReplys" parameterType="java.lang.String" resultType="com.entity.Reply">
+        select rid,cid,commid,cuserid,spuserid,recontent,ruserid,replytime from reply where repstatus=1 and cid=#{cid} order by replytime desc
+    </select>
+    <!--查询回复中用户信息-->
+    <select id="queryById" parameterType="java.lang.String" resultType="com.entity.Reply">
+        select ruserid,spuserid from reply where repstatus=1 and rid=#{rid}
+    </select>
+    <!-- 删除回复 -->
+    <update id="deleteReply" parameterType="com.entity.Reply">
+       update reply set repstatus=2
+       <where>
+           <if test="rid != null">and rid = #{rid}</if>
+           <if test="cid != null">and cid = #{cid}</if>
+       </where>
+    </update>
+</mapper>

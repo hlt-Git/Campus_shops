@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>弹出式消息中心</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/css/userInfo/message.css}" media="all">
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var userid = [[${session.userid}]];
+    </script>
+</head>
+<body style="background-color: white;">
+<div id="alertmessage">
+    <div data-v-4456424d="" data-v-028578c7="" class="message-item" data-v-0af8a0f9="" v-for="msg in messagelistData" :key="msg.id"
+         @click="alreadyread(msg.id)">
+        <div data-v-4456424d="" class="msg-item-top">
+            <div data-v-4456424d="" class="msg-cate">
+                <span data-v-4456424d="" class="label label-success font-14">{{msg.tpname}}</span>
+                <span v-if="msg.isread == '0'" :id="'msg'+msg.id" class="layui-badge-dot"></span>
+            </div>
+            <div data-v-4456424d="">
+                <div data-v-4456424d="" class="msg-main-content font-14" v-html="msg.whys">
+                </div>
+            </div>
+        </div>
+        <div data-v-4456424d="" class="msg-create-time text-right"><small data-v-4456424d="">{{msg.nttime}}</small></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script>
+    var messagelist = new Vue({
+        el: '#alertmessage',
+        data() {
+            return {
+                messagelistData: []
+            }
+        },
+        mounted: function () {
+            this.lookmessagelistData();
+            this.CancelLatest();
+            window.lookmessagelistData = this.lookmessagelistData;
+        },
+        methods: {
+            lookmessagelistData:function () {
+                var that=this;
+                $.ajax({
+                    url: basePath + "/notices/queryNotices",
+                    data: "",
+                    contentType: "application/json;charset=UTF-8", //发送数据的格式
+                    type: "get",
+                    dataType: "json", //回调
+                    success: function (data) {
+                        that.messagelistData=data.data;
+                    },error:function () {
+                        layui.use(['form', 'slider'], function () {
+                            var form = layui.form
+                                , layer = layui.layer;
+                            layer.msg("系统错误", {
+                                time: 1000,
+                                icon: 2,
+                                offset: '100px'
+                            });
+                        });
+                    }
+                });
+            },CancelLatest:function () {
+                $.ajax({
+                    url: basePath + "/notices/cancelLatest",
+                    data: "",
+                    contentType: "application/json;charset=UTF-8", //发送数据的格式
+                    type: "get",
+                    dataType: "json", //回调
+                    success: function (data) {
+                    }
+                });
+            },alreadyread:function (id) {
+                $("#msg"+id).hide();
+                $.ajax({
+                    url: basePath + "/notices/look/"+id,
+                    data: "",
+                    contentType: "application/json;charset=UTF-8", //发送数据的格式
+                    type: "put",
+                    dataType: "json", //回调
+                    success: function (data) {
+                    }
+                });
+            }
+        }
+    })
+</script>
+</html>

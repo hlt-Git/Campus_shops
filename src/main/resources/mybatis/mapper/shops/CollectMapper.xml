@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CollectMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--添加收藏-->
+    <insert id="insertCollect" parameterType="com.entity.Collect">
+        insert into collect (id,commid,commname,commdesc,cmuserid,username,school,couserid) values (#{id},#{commid},#{commname},#{commdesc},#{cmuserid},#{username},#{school},#{couserid})
+    </insert>
+    <!--分页查看所有收藏内容-->
+    <select id="queryAllCollect" resultType="com.entity.Collect">
+        select * from collect where collstatus=1 and couserid=#{couserid} order by soldtime desc limit #{page},#{count}
+    </select>
+    <!--修改收藏状态-->
+    <update id="updateCollect" parameterType="com.entity.Collect">
+        update collect set collstatus=#{colloperate}
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="commid != null">and commid = #{commid}</if>
+            <if test="commname != null">and commname = #{commname}</if>
+            <if test="commdesc != null">and commdesc = #{commdesc}</if>
+            <if test="school != null">and school = #{school}</if>
+            <if test="username != null">and username = #{username}</if>
+            <if test="soldtime != null">and soldtime = #{soldtime}</if>
+        </where>
+    </update>
+    <!--查询商品是否被用户收藏-->
+    <select id="queryCollectStatus" resultType="com.entity.Collect">
+        select couserid,collstatus from collect
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="commid != null">and commid = #{commid}</if>
+            and couserid=#{couserid}
+        </where>
+    </select>
+    <!--查询我的收藏的总数-->
+    <select id="queryCollectCount"  resultType="java.lang.Integer">
+        select count(*) from collect where collstatus=1 and couserid=#{couserid}
+    </select>
+</mapper>

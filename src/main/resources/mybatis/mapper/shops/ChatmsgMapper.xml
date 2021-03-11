@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ChatmsgMapper">
+
+    <!-- 插入发送的消息记录 -->
+  <insert id="insertChatmsg" parameterType="com.entity.chat.ChatMsg">
+    insert into chatmsg (senduserid, reciveuserid, msgtype, content)values (#{senduserid}, #{reciveuserid},#{msgtype}, #{content})
+  </insert>
+
+    <!-- 查询聊天记录 -->
+  <select id="LookChatMsg" parameterType="com.entity.chat.ChatMsg" resultType="com.entity.UserInfo">
+      select a.userid as id,b.content,b.sendtime,a.username,a.uimage as avatar from user_info a,
+      (select senduserid,content,sendtime from chatmsg where senduserid=#{senduserid} and reciveuserid=#{reciveuserid} or
+      senduserid=#{reciveuserid} and reciveuserid=#{senduserid}) b where a.userid=b.senduserid order by sendtime asc
+  </select>
+</mapper>

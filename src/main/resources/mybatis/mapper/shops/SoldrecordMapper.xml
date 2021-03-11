@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SoldrecordMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--插入售出记录-->
+    <insert id="insertSold" parameterType="com.entity.Soldrecord">
+        insert into soldrecord (id,commid,commname,commdesc,thinkmoney,userid) values (#{id},#{commid},#{commname},#{commdesc},#{thinkmoney},#{userid})
+    </insert>
+    <!--删除售出记录-->
+    <update id="deleteSold" parameterType="java.lang.String">
+        update soldrecord set soldstatus=2 where id=#{id}
+    </update>
+    <!--分页展示售出记录-->
+    <select id="queryAllSoldrecord" resultType="com.entity.Soldrecord">
+        select id,commid,commname,commdesc,thinkmoney,soldtime from soldrecord
+        <where>
+            <if test="userid != null">and userid = #{userid}</if>
+            and soldstatus=1
+        </where>
+        order by soldtime desc limit #{page},#{count}
+    </select>
+    <!--查看售出记录总数-->
+    <select id="querySoldCount" resultType="java.lang.Integer">
+        select count(*) from soldrecord
+        <where>
+            <if test="userid != null">and userid = #{userid}</if>
+            and soldstatus=1
+        </where>
+    </select>
+</mapper>

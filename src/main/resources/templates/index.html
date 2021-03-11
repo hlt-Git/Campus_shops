@@ -1,0 +1,400 @@
+﻿﻿﻿<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"><![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"><![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"><![endif]-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>首页</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/ps-icon/style.css}">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}"/>
+    <!-- CSS Library-->
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/slick/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/Magnific-Popup/dist/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-ui/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/navigation.css}">
+    <script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var userid = [[${session.userid}]];
+    </script>
+</head>
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"><![endif]-->
+<body class="ps-loading">
+<header class="header" th:fragment="myheader">
+    <div class="header__top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12">
+                    <p>校园二手商城，让您的闲置商品不再闲置，发现更多好玩好物！</p>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="header__actions">
+                        <div th:if="${session.userid!=null}" style="line-height:40px">
+                            <img src="" style="width:30px;display: none" id="avatars" class="layui-circle">
+                            <a th:href="@{/user/center}" target="_blank"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;个人中心&nbsp;&nbsp;</a>
+                            <!--<a href="//www.runoob.com" target="_blank"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;个人主页&nbsp;&nbsp;</a>-->
+                            <!--<a href="//www.runoob.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;消息通知&nbsp;&nbsp;</a>-->
+                            <a th:href="@{/user/logout}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;退出登录</a>
+                            <script>
+                                $.ajax({
+                                    url: basePath + "/user/avatar",
+                                    data: "",
+                                    contentType: "application/json;charset=UTF-8",
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        $("#avatars").attr("src",data.data.uimage);
+                                        $("#avatars").show();
+                                    },error:function () {
+                                        layer.msg('系统错误', {
+                                            time: 1500,
+                                            icon: 2,
+                                            offset: '150px'
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <a th:if="${session.userid==null}" th:href="@{/login}">登录 & 注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navigation">
+        <div class="container-fluid">
+            <div class="navigation__column left">
+                <div class="header__logo"><a class="ps-logo" th:href="@{/}">
+                    <img th:src="@{/static/images/logo.png}" alt=""></a></div>
+            </div>
+            <div class="navigation__column center">
+                <ul class="main-menu menu">
+                    <li class="menu-item menu-item-has-children dropdown"><a th:href="@{/}">首页</a>
+                    <li class="menu-item menu-item-has-children has-mega-menu"><a th:href="@{/product-listing}">商品清单</a>
+                    <li class="menu-item menu-item-has-children dropdown"><a th:href="@{/user/newslist}">网站公告</a></li>
+                    <li class="menu-item menu-item-has-children dropdown"><a th:href="@{/about}">关于我们</a></li>
+                    <li class="menu-item menu-item-has-children dropdown"><a th:href="@{/contacts}">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="navigation__column right">
+                <form class="ps-search--header layui-form" th:action="@{/product-search}" method="get">
+                    <input class="form-control" type="text" name="keys"
+                           lay-verify="required" lay-reqtext="商品关键字，岂能为空？" placeholder="请输入关键字">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="tosearch"><i class="ps-icon-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="header-services" th:fragment="myhdservices">
+    <div class="ps-services owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="7000" data-owl-gap="0"
+         data-owl-nav="true" data-owl-dots="false" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1"
+         data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+        <p class="ps-service"><i class="ps-icon-delivery"></i>你的需求就是我的需求，您的满意就是我的满意！</p>
+        <p class="ps-service"><i class="ps-icon-delivery"></i>小市场，大甩卖，让闲置物跳回家。</p>
+        <p class="ps-service"><i class="ps-icon-delivery"></i>环保公益两不误，与你相约在校园二手商城。</p>
+    </div>
+</div>
+<div class="layui-carousel" id="test10">
+    <div carousel-item="">
+        <div><img th:src="@{/static/images/slider/3.jpg}" style="width:100%;height: 100%;"></div>
+        <div><img th:src="@{/static/images/slider/2.jpg}" style="width:100%;height: 100%;"></div>
+    </div>
+</div>
+<main class="ps-main" id="indexssss">
+    <div class="ps-section--features-product ps-section masonry-root">
+        <div class="ps-container">
+            <div class="ps-section__header mb-50">
+                <h3 class="ps-section__title" data-mask="features">- 全部商品</h3>
+                <ul class="ps-masonry__filter">
+                    <li v-for="(category, index) in categoryList" :key="index">
+                        <!--:class="current : clilckCategory == category">-->
+                        <a @click="sendCategoryLabel(category)" :class="{active: clilckCategory === category}" style="cursor: pointer">{{ category }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ps-section__content pb-50">
+                <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30"
+                     data-radio="100%">
+                    <div class="layui-container">
+                        <div class="layui-row layui-col-space1">
+                            <div class="layui-col-md3" v-for="commodity in indexData" :key="commodity.commid">
+                                <div class="ps-shoes--carousel">
+                                    <div class="ps-shoe">
+                                        <div class="ps-shoe__thumbnail">
+                                            <img v-bind:src="commodity.image" alt="商品主图" style="height:300px">
+                                            <a class="ps-shoe__overlay" :href="'/product-detail/'+commodity.commid"
+                                               target="_blank"></a>
+                                        </div>
+                                        <div class="ps-shoe__content">
+                                            <div class="ps-shoe__variants">
+                                                <div class="layui-col-md4" v-for="imgs in commodity.otherimg"
+                                                     :key="imgs.id">
+                                                    <img v-bind:src="imgs" style="height:80px">
+                                                </div>
+                                            </div>
+                                            <div class="ps-shoe__detail">
+                                                <p style="width:130px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                                                    <a class="ps-shoe__name" :href="'/product-detail/'+commodity.commid">
+                                                        {{ commodity.commname }}
+                                                    </a>
+                                                </p>
+                                                <p class="ps-shoe__categories">
+                                                    {{ commodity.school }}
+                                                </p>
+                                                <span class="ps-shoe__price">
+                                            <del> ￥ {{ commodity.orimoney }}</del> ￥ {{ commodity.thinkmoney }}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-section--offer">
+        <div class="ps-column">
+            <a class="ps-offer" th:href="@{/product-listing}" target="_blank">
+                <img th:src="@{/static/images/banner/home-banner-1.png}">
+            </a>
+        </div>
+        <div class="ps-column">
+            <a class="ps-offer" th:href="@{/product-listing}" target="_blank">
+                <img th:src="@{/static/images/banner/home-banner-2.png}">
+            </a>
+        </div>
+    </div>
+    <div class="ps-section ps-section--top-sales ps-owl-root">
+        <div class="ps-container">
+            <div class="ps-section__header mb-50">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
+                        <h3 class="ps-section__title" data-mask="BEST SALE">- 最新商品</h3>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+                        <!--<div class="ps-owl-actions"><a class="ps-prev" href="#"><i-->
+                        <!--class="ps-icon-arrow-right"></i>上一页</a><a-->
+                        <!--class="ps-next" href="#">下一页<i class="ps-icon-arrow-left"></i></a></div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="ps-section__content">
+                <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30"
+                     data-radio="100%">
+                    <div class="layui-container">
+                        <div class="layui-row layui-col-space5">
+                            <div class="layui-col-md3" v-for="commodity in latestData" :key="commodity.commid">
+                                <div class="ps-shoes--carousel">
+                                    <div class="ps-shoe">
+                                        <div class="ps-shoe__thumbnail">
+                                            <div class="ps-badge"><span>New</span></div>
+                                            <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                                            <img v-bind:src="commodity.image" alt="商品主图" style="height:300px">
+                                            <a class="ps-shoe__overlay" :href="'/product-detail/'+commodity.commid"
+                                               target="_blank"></a>
+                                        </div>
+                                        <div class="ps-shoe__content">
+                                            <div class="ps-shoe__variants">
+                                                <div class="layui-col-md4" v-for="imgs in commodity.otherimg"
+                                                     :key="imgs.id">
+                                                    <img v-bind:src="imgs" style="height:80px">
+                                                </div>
+                                            </div>
+                                            <div class="ps-shoe__detail">
+                                                <p style="width:130px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                                                    <a class="ps-shoe__name" :href="'/product-detail/'+commodity.commid">
+                                                        {{ commodity.commname }}
+                                                    </a>
+                                                </p>
+                                                <p class="ps-shoe__categories">
+                                                    {{ commodity.school }}
+                                                </p>
+                                                <span class="ps-shoe__price">
+                                            <del> ￥ {{ commodity.orimoney }}</del> ￥ {{ commodity.thinkmoney }}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-section ps-home-blog">
+        <div class="ps-container">
+            <div class="ps-section__header">
+                <h2 class="ps-section__title" data-mask="Notice">- 最新公告</h2>
+            </div>
+            <div class="ps-section__content">
+                <div class="row" style="display: none" id="lastnews">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" v-for="news in newsData" :key="news.id">
+                        <div class="ps-post">
+                            <div class="ps-post__thumbnail"><a class="ps-post__overlay" style="cursor: pointer" @click="showNewsDetail(news.id)"></a>
+                                <img :src="news.image" alt=""></div>
+                            <div class="ps-post__content"><a class="ps-post__title" href="#">{{news.newstitle}}</a>
+                                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">网站管理员</a></span>
+                                    -<span class="ml-5">{{news.createtime}}</span></p>
+                                <p>{{news.newsdesc}}</p><a class="ps-morelink" style="cursor: pointer" @click="showNewsDetail(news.id)">阅读全文<i
+                                        class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-footer bg--cover" data-background="images/background/parallax.jpg">
+        <div class="ps-footer__content">
+            <div class="ps-container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--info">
+                            <header><a class="ps-logo" th:href="@{/}"><img th:src="@{/static/images/logo-white.png}"
+                                                                              alt=""></a>
+                                <h3 class="ps-widget__title">Address Office 1</h3>
+                            </header>
+                            <footer>
+                                <p><strong>460 West 34th Street, 15th floor, New York</strong></p>
+                                <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
+                                <p>Phone: +323 32434 5334</p>
+                                <p>Fax: ++323 32434 5333</p>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--info second">
+                            <header>
+                                <h3 class="ps-widget__title">Address Office 2</h3>
+                            </header>
+                            <footer>
+                                <p><strong>PO Box 16122 Collins Victoria 3000 Australia</strong></p>
+                                <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
+                                <p>Phone: +323 32434 5334</p>
+                                <p>Fax: ++323 32434 5333</p>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Find Our store</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--link">
+                                    <li><a href="#">Coupon Code</a></li>
+                                    <li><a href="#">SignUp For Email</a></li>
+                                    <li><a href="#">Site Feedback</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Get Help</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--line">
+                                    <li><a href="#">Order Status</a></li>
+                                    <li><a href="#">Shipping and Delivery</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Payment Options</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Products</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--line">
+                                    <li><a href="#">Shoes</a></li>
+                                    <li><a href="#">Clothing</a></li>
+                                    <li><a href="#">Accessries</a></li>
+                                    <li><a href="#">Football Boots</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- JS Library-->
+<script type="text/javascript" th:src="@{/static/plugins/jquery/dist/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-bar-rating/dist/jquery.barrating.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/owl-carousel/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/gmap3.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/imagesloaded.pkgd.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery.matchHeight-min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/slick/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/elevatezoom/jquery.elevatezoom.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/Magnific-Popup/dist/jquery.magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/ditugoogle.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<!-- Custom scripts-->
+<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/common/index.js}"></script>
+<script>
+    layui.use(['form', 'layer','carousel'], function () {
+        var form = layui.form;
+        var $ = layui.jquery,
+            layer = layui.layer;
+        var carousel = layui.carousel;
+        carousel.render({
+            elem: '#test10'
+            , width: '100%'
+            , height: '815px'
+            ,interval: 5000
+        });
+    });
+
+    function tologin() {
+        location.href = basePath + "/login";
+    }
+</script>
+</body>
+</html>

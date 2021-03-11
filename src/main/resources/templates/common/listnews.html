@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"><![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"><![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"><![endif]-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Nghia Minh Luong">
+    <meta name="keywords" content="Default Description">
+    <meta name="description" content="Default keyword">
+    <title>公告清单</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/ps-icon/style.css}">
+    <!-- CSS Library-->
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/slick/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/Magnific-Popup/dist/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-ui/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/navigation.css}">
+    <!-- Custom-->
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/dist/jquery.min.js}"></script>
+    <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--[if lt IE 9]>
+    <script th:src="@{/static/js/html5shiv.js}"></script>
+    <script th:src="@{/static/js/respond.min.js}"></script>
+    <![endif]-->
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"><![endif]-->
+<body class="ps-loading">
+<div class="header--sidebar"></div>
+<header class="header">
+    <div th:include="~{index :: myheader}"></div>
+</header>
+<div class="header-services">
+    <div th:include="~{index :: myhdservices}"></div>
+</div>
+<main class="ps-main" id="newslist">
+    <div class="ps-section ps-home-blog">
+        <div class="ps-container">
+            <div class="ps-section__header">
+                <h2 class="ps-section__title" data-mask="Notice">- 网站公告</h2>
+            </div>
+            <div class="ps-section__content">
+                <div class="row" style="display: none" id="newscontent">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" v-for="news in newslistdata" :key="news.id">
+                        <div class="ps-post">
+                            <div class="ps-post__thumbnail"><a class="ps-post__overlay" style="cursor: pointer" @click="showNewsDetail(news.id)"></a>
+                                <img :src="news.image" alt=""></div>
+                            <div class="ps-post__content"><a class="ps-post__title" href="#">{{news.newstitle}}</a>
+                                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">网站管理员</a></span>
+                                    -<span class="ml-5">{{news.createtime}}</span></p>
+                                <p>{{news.newsdesc}}</p><a class="ps-morelink" style="cursor: pointer" @click="showNewsDetail(news.id)">阅读全文<i
+                                        class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- JS Library-->
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-bar-rating/dist/jquery.barrating.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/owl-carousel/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/gmap3.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/imagesloaded.pkgd.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery.matchHeight-min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/slick/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/elevatezoom/jquery.elevatezoom.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/Magnific-Popup/dist/jquery.magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/ditugoogle.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<!-- Custom scripts-->
+<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/common/listnews.js}"></script>
+</body>
+</html>

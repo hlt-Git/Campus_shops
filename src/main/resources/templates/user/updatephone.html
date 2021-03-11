@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>更换号码</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">更换号码</div>
+                <div class="layui-card-body" pad15>
+
+                    <div class="layui-form" lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机号</label>
+                            <div class="layui-input-inline">
+                                <input type="number" id="oldPhone" name="oldPhone" lay-verify="required" lay-verType="tips"
+                                       autocomplete="off" placeholder="请输入更换的手机号"
+                                       lay-reqtext="手机号是必填项，岂能为空？" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">验证码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="code" lay-verify="pass" lay-verType="tips"
+                                       autocomplete="off" placeholder="请输入验证码" lay-reqtext="验证码是必填项，岂能为空？" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"></label>
+                            <div class="layui-input-inline">
+                                <label>
+                                    <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid "
+                                            id="LAY-user-getsmscode"
+                                            onclick="getphonecode()">获取短信验证码
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="margin-top: 30px">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="oldPhone">确认更换</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/js/js.cookie.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/admin/updatephone.js}"></script>
+</html>

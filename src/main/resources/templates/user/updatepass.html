@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>设置我的密码</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">修改密码</div>
+                <div class="layui-card-body" pad15>
+
+                    <div class="layui-form" lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">当前密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="oldPassword" lay-verify="required" lay-verType="tips"
+                                       autocomplete="off" placeholder="请输入旧密码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="password" lay-verify="pass" lay-verType="tips"
+                                       autocomplete="off" placeholder="请输入新密码" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">确认新密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="repassword" lay-verify="repass" lay-verType="tips"
+                                       autocomplete="off" placeholder="请再次输入新密码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="margin-top: 30px">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="setmypass">确认修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+        form.on('submit(setmypass)', function (data) {
+            var object = new Object();
+            object["oldpwd"] = data.field.oldPassword;
+            object["newpwd"] = data.field.password;
+            if(data.field.password.length<6||data.field.password.length>16){
+                layer.msg("密码格式错误", {
+                    time: 1000,
+                    icon: 2,
+                    offset: '100px'
+                });
+                return false;
+            }
+            if(data.field.password!=data.field.repassword){
+                layer.msg("两次输入的密码不相同", {
+                    time: 1000,
+                    icon: 2,
+                    offset: '100px'
+                });
+                return false;
+            }
+            var jsonData = JSON.stringify(object);
+            $.ajax({
+                url: basePath + "/user/updatepwd",
+                data: jsonData,
+                contentType: "application/json;charset=UTF-8",
+                type: "put",
+                dataType: "json",
+                beforeSend: function () {
+                    layer.load(1, { //icon支持传入0-2
+                        content: '修改中...',
+                        success: function (layero) {
+                            layero.find('.layui-layer-content').css({
+                                'padding-top': '39px',
+                                'width': '60px'
+                            });
+                        }
+                    });
+                },
+                complete: function () {
+                    layer.closeAll('loading');
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        layer.msg(data.message, {
+                            time: 1000,
+                            icon: 1,
+                            offset: '100px'
+                        }, function () {
+                            location.reload();
+                        });
+                    } else {
+                        layer.msg(data.message, {
+                            time: 1000,
+                            icon: 2,
+                            offset: '100px'
+                        });
+                    }
+                }, error: function () {
+                    layer.msg('系统异常');
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</html>

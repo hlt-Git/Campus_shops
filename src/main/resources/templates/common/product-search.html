@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"><![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"><![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"><![endif]-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Nghia Minh Luong">
+    <meta name="keywords" content="Default Description">
+    <meta name="description" content="Default keyword">
+    <title>商品搜索</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/ps-icon/style.css}">
+    <!-- CSS Library-->
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/slick/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/Magnific-Popup/dist/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-ui/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/navigation.css}">
+    <!-- Custom-->
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/dist/jquery.min.js}"></script>
+    <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--[if lt IE 9]>
+    <script th:src="@{/static/js/html5shiv.js}"></script>
+    <script th:src="@{/static/js/respond.min.js}"></script>
+    <![endif]-->
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var key=[[${keys}]];
+    </script>
+</head>
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"><![endif]-->
+<body class="ps-loading">
+<div class="header--sidebar"></div>
+<header class="header">
+    <div th:include="~{index :: myheader}"></div>
+</header>
+<div class="header-services">
+    <div th:include="~{index :: myhdservices}"></div>
+</div>
+<!--<div class="header&#45;&#45;sidebar"></div>
+<header class="header">
+    <div class="header__top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12">
+                    <p>校园二手商城，让您的闲置商品不再闲置，发现更多好玩好物！</p>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="header__actions">
+                        <div th:if="${session.userid!=null}" style="line-height:40px">
+                            <img src="" style="width:30px;display: none" id="avatars" class="layui-circle">
+                            <a th:href="@{/user/center}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;个人中心&nbsp;&nbsp;</a>
+                            <a href="//www.runoob.com"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;个人主页&nbsp;&nbsp;</a>
+                            <a href="//www.runoob.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;消息通知&nbsp;&nbsp;</a>
+                            <a th:href="@{/user/logout}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;退出登录</a>
+                            <script>
+                                $.ajax({
+                                    url: basePath + "/user/avatar",
+                                    data: "",
+                                    contentType: "application/json;charset=UTF-8",
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        $("#avatars").attr("src",data.data.uimage);
+                                        $("#avatars").show();
+                                    },error:function () {
+                                        layer.msg('系统错误', {
+                                            time: 1500,
+                                            icon: 2,
+                                            offset: '150px'
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <a th:if="${session.userid==null}" th:href="@{/login}">登录 & 注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navigation">
+        <div class="container-fluid">
+            <div class="navigation__column left">
+                <div class="header__logo"><a class="ps-logo" href="index.html">
+                    <img th:src="@{/static/images/logo.png}" alt=""></a></div>
+            </div>
+            <div class="navigation__column center">
+                <ul class="main-menu menu">
+                    <li class="menu-item menu-item-has-children dropdown"><a th:href="@{/}">首页</a>
+                    <li class="menu-item menu-item-has-children has-mega-menu"><a th:href="@{/product-listing}">商品清单</a>
+                    <li class="menu-item"><a href="#">附近</a></li>
+                    <li class="menu-item"><a href="#">本校</a></li>
+                    <li class="menu-item menu-item-has-children dropdown"><a href="#">新闻</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item menu-item-has-children dropdown"><a href="#">最新通知</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item"><a href="#">关于本商店</a></li>
+                                    <li class="menu-item"><a href="#">关于交易</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="#">注意事项</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item menu-item-has-children dropdown"><a href="#">关于我们</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item"><a href="#">我们的文化</a></li>
+                            <li class="menu-item"><a href="#">联系我们</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navigation__column right">
+                <form class="ps-search&#45;&#45;header layui-form" action="">
+                    <input class="form-control" type="text" name="keys"
+                           lay-verify="required" lay-reqtext="商品关键字，岂能为空？" placeholder="请输入关键字">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1"><i class="ps-icon-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>-->
+<!--<div class="header-services">
+    <div th:include="~{index :: myhdservices}"></div>
+</div>-->
+<main class="ps-main" id="productlist">
+    <div class="layui-container">
+        <div class="layui-row" style="display: none" id="contents">
+            <div class="layui-col-md4" v-for="commodity in productlistData" :key="commodity.commid">
+                <div class="ps-shoes--carousel">
+                    <div class="ps-shoe">
+                        <div class="ps-shoe__thumbnail">
+                            <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                            <img v-bind:src="commodity.image" alt="商品主图" style="height:400px">
+                            <a class="ps-shoe__overlay" :href="'/product-detail/'+commodity.commid"
+                               target="_blank"></a>
+                        </div>
+                        <div class="ps-shoe__content">
+                            <div class="ps-shoe__variants">
+                                <div class="layui-col-md4" v-for="imgs in commodity.otherimg"
+                                     :key="imgs.id">
+                                    <img v-bind:src="imgs" style="height:80px">
+                                </div>
+                            </div>
+                            <div class="ps-shoe__detail">
+                                <p style="width:130px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                                    <a class="ps-shoe__name" :href="'/product-detail/'+commodity.commid">
+                                        {{ commodity.commname }}
+                                    </a>
+                                </p>
+                                <p class="ps-shoe__categories">
+                                    {{ commodity.school }}
+                                </p>
+                                <span class="ps-shoe__price">
+                                            <del> ￥ {{ commodity.orimoney }}</del> ￥ {{ commodity.thinkmoney }}
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row" style="text-align: center">
+            <div id="layuipage"></div>
+        </div>
+    </div>
+</main>
+<!-- JS Library-->
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-bar-rating/dist/jquery.barrating.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/owl-carousel/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/gmap3.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/imagesloaded.pkgd.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery.matchHeight-min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/slick/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/elevatezoom/jquery.elevatezoom.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/Magnific-Popup/dist/jquery.magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/ditugoogle.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<!-- Custom scripts-->
+<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/common/product-search.js}"></script>
+</body>
+</html>

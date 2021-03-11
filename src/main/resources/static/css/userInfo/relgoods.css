@@ -1,0 +1,13 @@
+.imgDiv {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #C1C1C1;
+    margin: 5px;
+}
+
+.imgDiv .delete {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: none;
+}

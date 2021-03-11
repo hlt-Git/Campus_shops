@@ -1,0 +1,21 @@
+@media screen and (max-width:992px) {
+    .leftss{
+        display: none;
+    }
+    .cents{
+        width:100%;
+    }
+}
+*{
+    margin:0; padding:0;
+}
+html,body{
+    width: 100%;height: 100%;
+}
+
+body{
+    background: url();
+    background-size: 100% 100%;
+    background-position: center center;
+    overflow: hidden;
+}

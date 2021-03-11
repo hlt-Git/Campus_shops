@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/layuiadmin/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var userid = [[${session.userid}]];
+    </script>
+</head>
+<body class="layui-layout-body">
+
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="http://localhost" target="_blank" title="前台">
+                        <i class="layui-icon layui-icon-website"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <li class="layui-nav-item" lay-unselect>
+                    <a style="cursor: pointer" onclick="alertmessage()" layadmin-event="message" lay-text="消息中心">
+                        <i class="layui-icon layui-icon-notice"></i>
+                        <!-- 如果有新消息，则显示小圆点 -->
+                        <span class="layui-badge-dot" id="reddot" style="display: none"></span>
+                    </a>
+                </li>
+                <!-- 配色方案 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="theme">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <!-- 本地便签 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="note">
+                        <i class="layui-icon layui-icon-note"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite th:text="${session.username}"></cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a lay-href="/user/lookinfo">基本资料</a></dd>
+                        <dd><a lay-href="/user/pass">修改密码</a></dd>
+                        <hr>
+                        <dd style="text-align: center;">
+                            <a th:href="@{/user/logout}">退出</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="about"><i
+                            class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>个人中心</span>
+                </div>
+
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="layadmin-system-side-menu">
+                    <li data-name="home" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <cite>主页</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console" class="layui-this">
+                                <a lay-href="/home/console">控制台</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="collect" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="我的收藏" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>收藏管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a lay-href="/user/collect">我的收藏</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="template" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="商品管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-template"></i>
+                            <cite>商品管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a lay-href="/user/relgoods">发布闲置</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a lay-href="/user/product">商品清单</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="notice" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="消息中心" lay-direction="2">
+                            <i class="layui-icon layui-icon-app"></i>
+                            <cite>消息中心</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a lay-href="/user/message">通知信息</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="sold" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="售出记录" lay-direction="2">
+                            <i class="layui-icon layui-icon-list"></i>
+                            <cite>售出记录</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a lay-href="/user/sold">我的售出记录</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li shiro:hasPermission="user:userinfo" data-name="set" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="个人信息" lay-direction="2">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <cite>个人信息</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a lay-href="/user/lookinfo">基本资料</a></dd>
+                            <dd><a lay-href="/user/pass">修改密码</a></dd>
+                            <dd><a lay-href="/user/phone">更换手机号</a></dd>
+                        </dl>
+                    </li>
+                    <!--<li data-name="username" class="layui-nav-item">-->
+                        <!--<a href="javascript:;" lay-tips="个人主页" lay-direction="2">-->
+                            <!--<i class="layui-icon layui-icon-username"></i>-->
+                            <!--<cite>个人主页</cite>-->
+                        <!--</a>-->
+                        <!--<dl class="layui-nav-child">-->
+                            <!--<dd>-->
+                                <!--<a lay-href="/user/sold">我的个人主页</a>-->
+                            <!--</dd>-->
+                        <!--</dl>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        </div>
+
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="/home/console" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="/user/lookinfo" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+</div>
+
+<script th:src="@{/static/layuiadmin/layui/layui.js}"></script>
+<script type="application/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="application/javascript" th:src="@{/static/layim/layui/layui.js}"></script>
+<script type="application/javascript" th:src="@{/static/js/admin/layuiim.js}"></script>
+<script>
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+    function alertmessage() {
+        layer.open({
+            type: 2,
+            title: '最新通知',
+            shadeClose: true,
+            shade: 0.8,
+            maxmin: true,
+            area: ['50%', '60%'],
+            content: basePath+'/user/alertmessage'
+        });
+    }
+    function justredspot() {
+        $.ajax({
+            url: basePath + "/notices/queryNotices",
+            data: "",
+            contentType: "application/json;charset=UTF-8", //发送数据的格式
+            type: "get",
+            dataType: "json", //回调
+            success: function (data) {
+                if(data.data[0].latest==1){
+                    $("#reddot").show();
+                }
+            },error:function () {
+                layui.use(['form', 'slider'], function () {
+                    var form = layui.form
+                        , layer = layui.layer;
+                    layer.msg("系统错误", {
+                        time: 1000,
+                        icon: 2,
+                        offset: '100px'
+                    });
+                });
+            }
+        });
+    }
+    justredspot();
+</script>
+</body>
+</html>
+
+

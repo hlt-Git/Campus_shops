@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"><![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"><![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"><![endif]-->
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Nghia Minh Luong">
+    <meta name="keywords" content="Default Description">
+    <meta name="description" content="Default keyword">
+    <title>联系我们</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/ps-icon/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/slick/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/Magnific-Popup/dist/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-ui/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/gooddetail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/font-awesome/css/font-awesome.css}"/>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/static/js/html5shiv.js}"></script>
+    <script th:src="@{/static/js/respond.min.js}"></script>
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"><![endif]-->
+<body class="ps-loading">
+<div class="header--sidebar"></div>
+<header class="header">
+    <div th:include="~{index :: myheader}"></div>
+</header>
+<div class="header-services">
+    <div th:include="~{index :: myhdservices}"></div>
+</div>
+<main class="ps-main">
+测试界面
+</main>
+</body>
+</html>

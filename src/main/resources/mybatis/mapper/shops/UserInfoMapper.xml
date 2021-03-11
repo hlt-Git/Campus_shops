@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserInfoMapper">
+
+    <!--  查询用户信息-->
+    <select id="LookUserinfo" resultType="com.entity.UserInfo" parameterType="java.lang.String">
+        select * from user_info where userid=#{userid}
+    </select>
+    <!-- 查询所有用户信息 -->
+    <select id="queryAllUserInfo" resultType="com.entity.UserInfo">
+        select u.userid, u.username,u.uimage,u.sex,u.mobilephone,u.email,u.school,u.faculty,u.userstatus,l.roleid
+        from user_info u,login l
+        where u.userid=l.userid and l.roleid=#{roleid} and u.userstatus=#{userstatus}
+        order by u.createtime desc limit #{page},#{count}
+    </select>
+    <!--查看所有用户总数-->
+    <select id="queryAllUserCount" resultType="java.lang.Integer">
+        select count(*)
+        from user_info u,login l
+        where u.userid=l.userid and l.roleid=#{roleid}
+    </select>
+    <!-- 添加用户信息 -->
+    <insert id="userReg" parameterType="com.entity.UserInfo">
+        insert into user_info (userid,username,password,mobilephone,email,uimage,status,sign)
+        values (#{userid},#{username},#{password},#{mobilephone},#{email},#{uimage},${status},#{sign})
+    </insert>
+    <!-- 修改用户信息 -->
+    <update id="UpdateUserInfo" parameterType="com.entity.UserInfo">
+        update user_info
+        <set>
+            <if test="username != null">username=#{username},</if>
+            <if test="password != null">password=#{password},</if>
+            <if test="mobilephone != null">mobilephone=#{mobilephone},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="uimage != null">uimage=#{uimage},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="school != null">school=#{school},</if>
+            <if test="faculty != null">faculty=#{faculty},</if>
+            <if test="startime != null">startime=#{startime}</if>
+            <if test="userstatus != null">userstatus=#{userstatus}</if>
+            <if test="status != null">status=#{status}</if>
+        </set>
+        where userid=#{userid}
+    </update>
+    <!--查询用户的昵称和头像-->
+    <select id="queryPartInfo" parameterType="java.lang.String" resultType="com.entity.UserInfo">
+        select username,uimage from user_info where userstatus=1 and userid=#{userid}
+    </select>
+</mapper>

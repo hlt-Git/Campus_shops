@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"><![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"><![endif]-->
+<!--[if IE 9]>
+<html class="ie ie9"><![endif]-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="ch">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Nghia Minh Luong">
+    <meta name="keywords" content="Default Description">
+    <meta name="description" content="Default keyword">
+    <title>商品详情 | [[${gddetail.commname}]]</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/ps-icon/style.css}">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/slick/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/bootstrap-select/dist/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/Magnific-Popup/dist/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/jquery-ui/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/static/plugins/revolution/css/navigation.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/gooddetail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/font-awesome/css/font-awesome.css}"/>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/static/js/html5shiv.js}"></script>
+    <script th:src="@{/static/js/respond.min.js}"></script>
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+        var goodsid = [[${gddetail.commid}]];
+        var gooduser = [[${gddetail.userid}]];
+        var userid =  [[${session.userid}]];
+        var collectstatus=[[${collectstatus}]];
+    </script>
+</head>
+<!--[if IE 7]>
+<body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 8]>
+<body class="ie8 lt-ie9 lt-ie10"><![endif]-->
+<!--[if IE 9]>
+<body class="ie9 lt-ie10"><![endif]-->
+<body class="ps-loading">
+<div class="header--sidebar"></div>
+<header class="header">
+    <div th:include="~{index :: myheader}"></div>
+</header>
+<div class="header-services">
+    <div th:include="~{index :: myhdservices}"></div>
+</div>
+<main class="ps-main">
+    <div class="test">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-product--detail pt-60">
+        <div class="ps-container">
+            <div class="row">
+                <div class="col-lg-10 col-md-12 col-lg-offset-1">
+                    <div class="ps-product__thumbnail">
+                        <div class="ps-product__preview">
+                            <div class="ps-product__variants">
+                                <div class="item"><img th:src="${gddetail.image}"></div>
+                                <div class="item" th:each="imgs:${gddetail.otherimg}">
+                                    <img th:src="${imgs}" alt="">
+                                </div>
+                            </div>
+                            <a class="popup-youtube ps-product__video" th:href="${gddetail.videourl}">
+                                <img th:src="${gddetail.image}" alt=""><i class="fa fa-play"></i></a>
+                        </div>
+                        <div class="ps-product__image layer-photos-demo" id="layer-photos-demo">
+                            <img th:src="${gddetail.image}" th:layer-src="${gddetail.image}" style="width:500px;height:500px;cursor: pointer;">
+                            <img th:each="imgs:${gddetail.otherimg}" th:src="${imgs}"
+                                 th:layer-src="${imgs}" style="width:500px;height:500px;cursor: pointer;">
+                        </div>
+                    </div>
+                    <div class="ps-product__info">
+                        <h1 style='width:400px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' id="commname"
+                            th:title="${gddetail.commname}" th:text="${gddetail.commname}"></h1>
+                        <div style="margin-top:10px;margin-bottom:10px">
+                            <span style="font-size:25px;color:#E7503C">￥</span>
+                            <span style="font-size:30px;color:#E7503C" th:text="${gddetail.thinkmoney}"></span>
+                            <span><del th:text="${'￥'+gddetail.orimoney}"></del></span>
+                        </div>
+                        <h4 style="margin-bottom:15px">
+                            <div class="layui-inline">
+                                <a href="#"><img th:src="${userinfo.uimage}" style="width:60px" class="layui-circle">&nbsp;<span th:text="${userinfo.username}" id="username"></span></a>
+                            </div>
+                        </h4>
+                        <h4 style="margin-bottom:15px">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
+                            style="background-color:#27B574">地&nbsp;址</button>&nbsp;&nbsp;<span th:text="${gddetail.school}" id="school"></span>
+                        </h4>
+                        <h4 style="margin-bottom:15px">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
+                                    style="background-color:#27B574">标&nbsp;签</button>&nbsp;&nbsp;<span th:text="${gddetail.common}"></span>
+                        </h4>
+                        <h4 style="margin-bottom:15px">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
+                                    style="background-color:#27B574">日&nbsp;期</button>&nbsp;&nbsp;<span th:text="${#dates.format(gddetail.createtime,'yyyy-MM-dd')}"></span>
+                        </h4>
+                        <h4 style="margin-bottom:15px">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
+                                    style="background-color:#27B574">浏&nbsp;览</button>&nbsp;&nbsp;<span th:text="${gddetail.rednumber}"></span>
+                        </h4>
+                        <div class="ps-product__shopping">
+                            <a class="ps-btn mb-10" style="cursor: pointer"
+                               th:onclick="|ganxingqu()|">感兴趣<i class="ps-icon-next"></i></a>
+                            <div class="ps-product__actions" id="shoucang"><!--点击收藏-->
+                                <a class="mr-10" onclick="dianjicllect(1)" style="cursor: pointer"><i class="ps-icon-heart"></i></a>
+                            </div>
+                            <div class="ps-product__actions" id="quxiaoshoucang" style="cursor: pointer"><!--点击取消收藏-->
+                                <a class="mr-10" onclick="dianjicllect(2)"
+                                style="background-color: #3AB87E"><i class="ps-icon-heart"></i></a>
+                            </div>
+                            <script>
+                                if(collectstatus===2){
+                                    $("#shoucang").show();
+                                    $("#quxiaoshoucang").hide();
+                                }else {
+                                    $("#quxiaoshoucang").show();
+                                    $("#shoucang").hide();
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="ps-product__content" style="margin-top:0px">
+                    <ul class="tab-list" role="tablist">
+                        <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">详情</a></li>
+                        <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">评论</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content mb-60" id="comments">
+                    <div class="tab-pane active" role="tabpanel" id="tab_01">
+                        <fieldset class="layui-elem-field">
+                            <legend style="font-size:25px">商品详情</legend>
+                            <div class="layui-field-box">
+                                <div class="layui-container" style="font-size:18px;width:100%">
+                                    <div class="layui-row" style="margin-top:10px">
+                                        <div class="layui-col-xs12">
+                                            <div class="ps-product__block ps-product__quickview" id="commdesc"
+                                                 th:text="${gddetail.commdesc}" style="font-size:16px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-container" style="font-size:18px;margin-top:10px">
+                                    <div class="layui-row">
+                                        <div class="layui-col-md3" style="height: 1px">
+                                        </div>
+                                        <div class="layui-col-md8">
+                                            <div class="layui-carousel" id="test1" lay-filter="test1">
+                                                <div carousel-item="">
+                                                    <div><img th:src="${gddetail.image}" style="width:100%;height:100%"></div>
+                                                    <div th:each="imgs:${gddetail.otherimg}">
+                                                        <img th:src="${imgs}" style="width:100%;height:100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="tab-pane" role="tabpane1" id="tab_02">
+                        <div style="display: none;text-align: center" id="nocomment">
+                            暂无评论
+                        </div>
+                        <div style="display: none" id="havecomment">
+                            <div v-for="(cmm,index) in listcomments" :key="index">
+                                <div class="ps-review">
+                                    <div class="ps-review__thumbnail"><img :src="cmm.cuimage" alt=""></div>
+                                    <div class="ps-review__content">
+                                        <header>
+                                            <p>By&nbsp;<a href="">{{cmm.cusername}}</a>&nbsp;-&nbsp;{{cmm.commtime | changeTime}}
+                                                &nbsp;-&nbsp;<a style="color:#27B574;cursor: pointer"
+                                                @click="replyuser(cmm.cusername,cmm.cid,cmm.cuserid)">回复</a>
+                                            </p>
+                                        </header>
+                                        <p>{{cmm.content}}</p>
+                                    </div>
+                                </div>
+                                <div class="ps-review" v-for="(rep,index) in cmm.replyLsit" :key="index">
+                                    <div class="ps-review__thumbnail"><img :src="rep.ruimage" alt=""></div>
+                                    <div class="ps-review__content">
+                                        <header>
+                                            <p>By&nbsp;<a href="">{{rep.rusername}}</a>&nbsp;To&nbsp;<a href="">{{rep.cusername}}</a>
+                                                &nbsp;-&nbsp;{{rep.replytime | changeTime}}&nbsp;-&nbsp;
+                                                <a style="color:#27B574;cursor: pointer"
+                                                   @click="replyuser(rep.rusername,rep.cid,rep.spuserid)">回复</a>
+                                            </p>
+                                        </header>
+                                        <p>{{rep.recontent}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>评论</legend>
+                        </fieldset>
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item layui-form-text">
+                                <div class="layui-input-block">
+                                    <textarea class="layui-textarea" name="content" id="content"
+                                    style="resize: none;height:66px" lay-verify="required" lay-reqtext="评论内容岂能为空？"
+                                              placeholder="请输入评论内容"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button th:if="${session.userid==null}" type="submit" class="layui-btn layui-btn-disabled" disabled="disabled" lay-submit=""
+                                            lay-filter="demo1" title="请登录后评论">立即提交</button>
+                                    <button th:if="${session.userid!=null}" id="subid" type="submit" class="layui-btn" lay-submit=""
+                                            lay-filter="demo1">立即提交</button>
+                                    <button style="display: none" id="reply" type="submit" class="layui-btn" lay-submit=""
+                                            lay-filter="demo2">立即提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-80" id="latestp">
+        <div class="ps-container">
+            <div class="ps-section__header mb-50">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
+                        <h3 class="ps-section__title" data-mask="Related item">- 最新商品</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-section__content">
+                <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30"
+                     data-radio="100%">
+                    <div class="layui-container">
+                        <div class="layui-row layui-col-space5">
+                            <div class="layui-col-md3" v-for="commodity in latestData" :key="commodity.commid">
+                                <div class="ps-shoes--carousel">
+                                    <div class="ps-shoe">
+                                        <div class="ps-shoe__thumbnail">
+                                            <div class="ps-badge"><span>New</span></div>
+                                            <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                                            <img v-bind:src="commodity.image" alt="商品主图" style="height:300px">
+                                            <a class="ps-shoe__overlay" :href="'/product-detail/'+commodity.commid"
+                                               target="_blank"></a>
+                                        </div>
+                                        <div class="ps-shoe__content">
+                                            <div class="ps-shoe__variants">
+                                                <div class="layui-col-md4" v-for="imgs in commodity.otherimg"
+                                                     :key="imgs.id">
+                                                    <img v-bind:src="imgs" style="height:80px">
+                                                </div>
+                                            </div>
+                                            <div class="ps-shoe__detail">
+                                                <p style="width:130px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                                                    <a class="ps-shoe__name" :href="'/product-detail/'+commodity.commid">
+                                                        {{ commodity.commname }}
+                                                    </a>
+                                                </p>
+                                                <p class="ps-shoe__categories">
+                                                    {{ commodity.school }}
+                                                </p>
+                                                <span class="ps-shoe__price">
+                                            <del> ￥ {{ commodity.orimoney }}</del> ￥ {{ commodity.thinkmoney }}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-footer bg--cover" data-background="images/background/parallax.jpg">
+        <div class="ps-footer__content">
+            <div class="ps-container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--info">
+                            <header><a class="ps-logo" th:href="@{/}"><img th:src="@{/static/images/logo-white.png}" alt=""></a>
+                                <h3 class="ps-widget__title">Address Office 1</h3>
+                            </header>
+                            <footer>
+                                <p><strong>460 West 34th Street, 15th floor, New York</strong></p>
+                                <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
+                                <p>Phone: +323 32434 5334</p>
+                                <p>Fax: ++323 32434 5333</p>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--info second">
+                            <header>
+                                <h3 class="ps-widget__title">Address Office 2</h3>
+                            </header>
+                            <footer>
+                                <p><strong>PO Box 16122 Collins Victoria 3000 Australia</strong></p>
+                                <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
+                                <p>Phone: +323 32434 5334</p>
+                                <p>Fax: ++323 32434 5333</p>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Find Our store</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--link">
+                                    <li><a href="#">Coupon Code</a></li>
+                                    <li><a href="#">SignUp For Email</a></li>
+                                    <li><a href="#">Site Feedback</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Get Help</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--line">
+                                    <li><a href="#">Order Status</a></li>
+                                    <li><a href="#">Shipping and Delivery</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Payment Options</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
+                        <aside class="ps-widget--footer ps-widget--link">
+                            <header>
+                                <h3 class="ps-widget__title">Products</h3>
+                            </header>
+                            <footer>
+                                <ul class="ps-list--line">
+                                    <li><a href="#">Shoes</a></li>
+                                    <li><a href="#">Clothing</a></li>
+                                    <li><a href="#">Accessries</a></li>
+                                    <li><a href="#">Football Boots</a></li>
+                                </ul>
+                            </footer>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- JS Library-->
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-bar-rating/dist/jquery.barrating.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/owl-carousel/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/gmap3.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/imagesloaded.pkgd.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery.matchHeight-min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/slick/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/elevatezoom/jquery.elevatezoom.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/Magnific-Popup/dist/jquery.magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/ditugoogle.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/plugins/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<!-- Custom scripts-->
+<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/timeago.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/common/productdetail.js}"></script>
+</body>
+</html>

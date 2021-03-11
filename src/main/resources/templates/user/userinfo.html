@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>个人信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">个人信息</div>
+                <div class="layui-card-body" pad15>
+
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">我的角色</label>
+                            <div class="layui-input-inline">
+                                <select name="role" lay-verify="">
+                                    <option value="1" selected>网站用户</option>
+                                    <!--<option value="2" disabled>普通管理员</option>-->
+                                    <!--<option value="3" disabled>超级管理员</option>-->
+                                </select>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">当前角色不可更改为其它角色</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空"
+                                       placeholder="请输入用户名"
+                                       autocomplete="off" class="layui-input" th:value="${userInfo.username}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">谨慎修改。</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="margin-top: 25px">头像</label>
+                            <div class="layui-input-inline">
+                                <img th:src="${userInfo.uimage}"
+                                     style="margin-left:30px; width:100px;border-radius:50%;cursor: pointer"
+                                     title="点击修改头像" alt="头像" id="uimage">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" value="" lay-verify="email" autocomplete="off"
+                                       placeholder="请输入邮箱" class="layui-input" th:value="${userInfo.email}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">学校</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="school" lay-verify="school" autocomplete="off"
+                                       placeholder="请输入所在学校" class="layui-input" th:value="${userInfo.school}"
+                                       style="cursor:not-allowed;" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">院系</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="faculty" value="" lay-verify="faculty" autocomplete="off"
+                                       placeholder="请输入所在院系" class="layui-input" th:value="${userInfo.faculty}"
+                                       style="cursor:not-allowed;" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">入学时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="startime" class="layui-input"
+                                           placeholder="选择入学时间" th:value="${userInfo.startime}"
+                                           style="cursor:not-allowed;" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                                <input th:if="${userInfo.sex}=='男'" type="radio" name="sex" value="男" title="男" checked>
+                                <input th:if="${userInfo.sex}!='男'" type="radio" name="sex" value="男" title="男">
+                                <input th:if="${userInfo.sex}=='女'" type="radio" name="sex" value="女" title="女" checked>
+                                <input th:if="${userInfo.sex}!='女'" type="radio" name="sex" value="女" title="女">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/userInfo/info.js}"></script>
+
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'set']);
+</script>
+</body>
+</html>

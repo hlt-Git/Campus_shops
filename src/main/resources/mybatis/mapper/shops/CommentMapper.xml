@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CommentMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!-- 插入评论 -->
+    <insert id="insertComment" parameterType="com.entity.Comment">
+        insert into comment (cid,commid,cuserid,spuserid,content) values (#{cid},#{commid},#{cuserid},#{spuserid},#{content})
+    </insert>
+    <!-- 查询评论 -->
+    <select id="queryComments" parameterType="java.lang.String" resultType="com.entity.Comment">
+        select cid,commid,cuserid,spuserid,content,commtime from comment where commstatus=1 and commid=#{commid} order by commtime desc
+    </select>
+    <!--查询评论中用户信息-->
+    <select id="queryById" parameterType="java.lang.String" resultType="com.entity.Comment">
+        select cuserid,spuserid from comment where commstatus=1 and cid=#{cid}
+    </select>
+    <!-- 删除评论 -->
+    <update id="deleteComment" parameterType="java.lang.String">
+        update comment set commstatus=2 where cid=#{cid}
+    </update>
+</mapper>

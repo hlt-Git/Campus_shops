@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>校园二手交易商城 | 重置密码</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/userInfo/lgstyle.css}">
+    <script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+<body>
+<div class="dowebok">
+    <div class="form sign-in" id="forget" style="margin-top:40px">
+        <h2>重置密码</h2>
+        <label>
+            <span>手机号</span>
+            <input type="text" autocomplete="off" placeholder="请输入账号" id="mobilephone" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+        </label>
+        <label>
+            <span>密码</span>
+            <input type="password" autocomplete="off" placeholder="请输入密码" id="password" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+        </label>
+        <label>
+            <span>验证码</span>
+            <input type="text" autocomplete="off" placeholder="请输入验证码" id="vercode" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+        </label>
+        <label>
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid " id="LAY-user-getsmscode"
+                    onclick="getphonecode()">获取短信验证码</button>
+        </label>
+        <button type="button" class="submit" id="submitlg" style="margin-top:10px" onclick="submitforget()">提 交</button>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>重置密码</h2>
+                <p>重置密码后就&nbsp;<a th:href="@{login}" style="color:#4285F4">登录</a>&nbsp;吧，发现好玩、好物！</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/layui/layui.js}"></script>
+<script th:src="@{/static/js/js.cookie.min.js}"></script>
+<script th:src="@{/static/js/userInfo/forget.js}"></script>
+<script>
+    layui.use(['form','layer'], function () {
+        var form=layui.form;
+        var $ = layui.jquery,
+            layer = layui.layer;
+    });
+    function tologin() {
+        location.href=basePath+"/login";
+    }
+</script>
+</html>

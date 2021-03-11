@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.LoginMapper">
+
+    <resultMap id="shoplogin" type="com.entity.Login">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid"/>
+        <result column="roleid" jdbcType="INTEGER" property="roleid"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="userstatus" jdbcType="INTEGER" property="userstatus"/>
+    </resultMap>
+
+    <!-- 注册 -->
+    <insert id="loginAdd" parameterType="com.entity.Login">
+        insert into login (id,userid,username,password,mobilephone) values (#{id},#{userid},#{username},#{password},#{mobilephone})
+    </insert>
+    <!-- 登录及判断用户是否存在 -->
+    <select id="userLogin" parameterType="com.entity.Login" resultMap="shoplogin">
+        select * from login
+        <where>
+            <if test="userid != null">and userid = #{userid}</if>
+            <if test="username != null">and username = #{username}</if>
+            <if test="mobilephone != null">and mobilephone = #{mobilephone}</if>
+            <if test="password != null">and password = #{password}</if>
+        </where>
+        and userstatus=1
+    </select>
+    <!-- 修改登录信息 -->
+    <update id="updateLogin" parameterType="com.entity.Login">
+        update login
+        <set>
+            <if test="roleid != null">roleid = #{roleid},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="mobilephone != null">mobilephone = #{mobilephone},</if>
+            <if test="userstatus != null">userstatus = #{userstatus}</if>
+        </set>
+        where id=#{id} or userid=#{userid}
+    </update>
+</mapper>

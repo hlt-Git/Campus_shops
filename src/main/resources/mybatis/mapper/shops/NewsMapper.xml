@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.NewsMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+
+    <!-- 发布公告 -->
+    <insert id="insertNews" parameterType="com.entity.News">
+        insert into news (id,newstitle,newsdesc,newscontent,username,image) values (#{id},#{newstitle},#{newsdesc},#{newscontent},#{username},#{image})
+    </insert>
+    <!-- 删除公告 -->
+    <update id="delectNews" parameterType="java.lang.String">
+        update news set newsstatus=2 where id=#{id}
+    </update>
+    <!-- 修改公告 -->
+    <update id="updateNews" parameterType="com.entity.News">
+        update news
+        <set>
+            <if test="newstitle != null">newstitle = #{newstitle},</if>
+            <if test="newsdesc != null">newsdesc = #{newsdesc},</if>
+            <if test="newscontent != null">newscontent = #{newscontent},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <!-- 查看公告详情 -->
+    <select id="queryNewsById" resultType="com.entity.News">
+        select * from news where id=#{id} and newsstatus=1
+    </select>
+    <!-- 浏览量 -->
+    <update id="addNewsRednumber" parameterType="java.lang.String">
+        update news set rednumber=rednumber+1 where id=#{id} and newsstatus=1
+    </update>
+    <!-- 查询前三条公告 -->
+    <select id="queryNews" resultType="com.entity.News">
+        select * from news where newsstatus=1 order by createtime desc limit 0,3
+    </select>
+    <!-- 分页展示公告信息 -->
+    <select id="queryAllNews" resultType="com.entity.News">
+        select id,newstitle,image,newsdesc,username,createtime,rednumber from news where newsstatus=1
+        order by createtime desc limit #{page},#{count}
+    </select>
+    <!-- 查找所有公告的总数 -->
+    <select id="LookNewsCount" resultType="java.lang.Integer">
+        select count(*) from news where newsstatus=1
+    </select>
+</mapper>

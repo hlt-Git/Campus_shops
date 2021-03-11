@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <base th:href="${#request.getScheme()}+'://'+${#request.getServerName()}+':'+${#request.getServerPort()}+${#request.getContextPath()}">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园二手交易商城 | 登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/userInfo/lgstyle.css}">
+    <script type="text/javascript" th:src="@{/static/layui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script th:inline="javascript">
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+    </script>
+</head>
+
+<body>
+<div class="dowebok">
+    <div class="form sign-in">
+        <h2>欢迎回来</h2>
+        <label>
+            <span>账号</span>
+            <input type="text" autocomplete="off" placeholder="请输入账号" id="username"/>
+        </label>
+        <label>
+            <span>密码</span>
+            <input type="password" autocomplete="off" placeholder="请输入密码" id="password" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+        </label>
+        <label>
+            <span>验证码</span>
+            <input type="text" autocomplete="off" placeholder="请输入验证码" id="vercode" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+        </label>
+        <label>
+            <img th:src="@{/images}" title="看不清，请点击图片刷新" width="128px"
+                 height="33px" id="image1" onclick="getcode(this)"/>
+        </label>
+        <p class="forgot-pass"><a th:href="@{/forget}">忘记密码？</a></p>
+        <button type="button" class="submit" id="submitlg" style="margin-top:10px" onclick="submitlogin()">登 录</button>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>还未注册？</h2>
+                <p>立即注册，让闲置不再是闲置！</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>已有帐号？</h2>
+                <p>有帐号就登录吧，发现好玩、好物！</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">注 册</span>
+                <span class="m--in">登 录</span>
+            </div>
+        </div>
+        <div class="form sign-up" id="registers" style="margin-top:-25px">
+            <h2>立即注册</h2>
+            <label>
+                <span>手机号</span><!-- @blur="jiantingphone()"/>-->
+                <input type="text" autocomplete="off" placeholder="请输入账号" id="userphone" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+            </label>
+            <label>
+                <span>邮箱</span>
+                <input type="email" autocomplete="off" placeholder="请输入邮箱" id="useremail" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+            </label>
+            <label>
+                <span>用户名</span>
+                <input type="text" autocomplete="off" placeholder="请输入用户名" id="nickname"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" autocomplete="off" placeholder="请输入密码" id="password2" onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+            </label>
+            <label>
+                <span>验证码</span>
+                <input type="text" autocomplete="off" placeholder="请输入短信验证码" id="phonevercode"  onkeyup="this.value=this.value.replace(/\s+/g,'')"/>
+            </label>
+            <label>
+                <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid " id="LAY-user-getsmscode"
+                        onclick="getphonecode()">获取短信验证码</button>
+            </label>
+            <button type="button" id="submitrg" class="submit" style="margin-top:10px" onclick="submitregister()">注 册</button>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/static/layui/layui.js}"></script>
+<script th:src="@{/static/js/js.cookie.min.js}"></script>
+<script th:src="@{/static/js/userInfo/logreg.js}"></script>
+</html>
