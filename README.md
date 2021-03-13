@@ -2,16 +2,28 @@
 
 # 导语
 
-### 项目数据库获取方式关注公众号：理木客，后台回复：shop
+### 项目数据库和部署视频，获取方式关注公众号：理木客，后台回复：shop 
 ### 项目的数据文件请加QQ群：994793967  获取
 ### 如需更多项目资源和学习资源，请加入此群：671408308
-### 项目演示视频：[Springboot + Vue.js 的校园二手交易商城](http://https://www.bilibili.com/video/BV16X4y1V7ay/)
-
+### 项目演示视频：[Springboot + Vue.js 的校园二手交易商城](https://www.bilibili.com/video/BV16X4y1V7ay/)
+### 短信验证码及支付接口申请演示视频：[如何申请短信验证码接口和支付宝支付接口](https://www.bilibili.com/video/BV1Wh411Q76C/)
+### 项目部署视频：请关注公众号 理木客 获取
 #### 介绍
 毕设：基于Springboot的校园二手交易商城的设计与实现
 
 #### 软件架构
-Springboot+vue+MySQL
+- Springboot+vue+MySQL
+
+#### 部署系统必备
+- JDK（1.8版本,并配置系统环境变量）
+- MySQL（5.7版本）
+- Navicat for MySQL（可视化）
+- Maven（换阿里源，管理Jar包）
+- Lombok插件（简化实体类）
+- 本项目采用IDEA开发，以上工具类及安装教程可在QQ群中获取
+#### 可选项
+- 阿里SMS（个人目前无法申请签名）
+- 支付宝沙箱（可以申请）
 
 ### 已有功能已对接
   #### 登陆、注册、重置密码模块
