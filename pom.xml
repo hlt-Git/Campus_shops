@@ -48,18 +48,6 @@
             <version>1.4.0</version>
         </dependency>
         <!--shiro结束-->
-        <!--阿里云邮件-->
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dm</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <!--阿里云邮件-->
         <!--阿里云短信-->
         <dependency>
             <groupId>com.aliyun</groupId>
