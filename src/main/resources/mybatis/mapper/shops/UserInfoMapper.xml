@@ -22,7 +22,7 @@
     <!-- 添加用户信息 -->
     <insert id="userReg" parameterType="com.entity.UserInfo">
         insert into user_info (userid,username,password,mobilephone,email,uimage,status,sign)
-        values (#{userid},#{username},#{password},#{mobilephone},#{email},#{uimage},${status},#{sign})
+        values (#{userid},#{username},#{password},#{mobilephone},#{email},#{uimage},#{status},#{sign})
     </insert>
     <!-- 修改用户信息 -->
     <update id="UpdateUserInfo" parameterType="com.entity.UserInfo">
