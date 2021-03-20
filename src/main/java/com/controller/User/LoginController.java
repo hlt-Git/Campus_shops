@@ -167,6 +167,9 @@ public class LoginController {
                 session.setAttribute("username",username);
                 /**存入用户角色信息*/
                 userRoleService.InsertUserRole(new UserRole().setUserid(userid).setRoleid(1).setIdentity("网站用户"));
+                UsernamePasswordToken token=new UsernamePasswordToken(mobilephone, new Md5Hash(password,"Campus-shops").toString());
+                Subject subject= SecurityUtils.getSubject();
+                subject.login(token);
                 return new ResultVo(true,StatusCode.OK,"注册成功");
             }
             return new ResultVo(false,StatusCode.ERROR,"注册失败");
