@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>校园二手商城后台管理系统</title>
+    <title>体育用品商城后台管理系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -52,9 +52,6 @@
                         <cite th:text="${session.username}"></cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="/user/lookinfo">基本资料</a></dd>
-                        <dd><a lay-href="/user/pass">修改密码</a></dd>
-                        <hr>
                         <dd style="text-align: center;">
                             <a th:href="@{/user/logout}">退出</a>
                         </dd>
@@ -75,7 +72,7 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo" lay-href="home/console.html">
-                    <span>校园二手商城后台管理</span>
+                    <span>体育用品商城后台管理</span>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
@@ -148,17 +145,6 @@
                             <dd>
                                 <a lay-href="/echars/console">统计图</a>
                             </dd>
-                        </dl>
-                    </li>
-                    <li shiro:hasPermission="user:userinfo" data-name="username" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="管理员信息" lay-direction="2">
-                            <i class="layui-icon layui-icon-username"></i>
-                            <cite>管理员信息</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd><a lay-href="/user/lookinfo">基本资料</a></dd>
-                            <dd><a lay-href="/user/pass">修改密码</a></dd>
-                            <dd><a lay-href="/user/phone">更换手机号</a></dd>
                         </dl>
                     </li>
                 </ul>

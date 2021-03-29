@@ -14,7 +14,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object user = request.getSession().getAttribute("userid");
-        if (StringUtils.isEmpty(user)) {
+        Object admin = request.getSession().getAttribute("admin");
+        if (StringUtils.isEmpty(user) && StringUtils.isEmpty(admin)) {
             //未登陆，返回首页
             request.setAttribute("msg", "没有权限请先登陆");
             response.sendRedirect(request.getContextPath() + "/");//重定向

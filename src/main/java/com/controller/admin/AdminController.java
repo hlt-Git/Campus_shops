@@ -90,12 +90,8 @@ public class AdminController {
             //查询登录者的权限
             Integer roleId = userRoleService.LookUserRoleId(login1.getUserid());
             if (roleId == 2 || roleId == 3){
-                session.setAttribute("userid",login1.getUserid());
                 session.setAttribute("admin",login1.getUsername());
                 session.setAttribute("username",login1.getUsername());
-                System.out.println("userid：" + login1.getId());
-                System.out.println("admin：" + login1.getUsername());
-                System.out.println("username：" + login1.getUsername());
                 return new ResultVo(true,StatusCode.OK,"登录成功");
             }
             return new ResultVo(true,StatusCode.ACCESSERROR,"权限不足");

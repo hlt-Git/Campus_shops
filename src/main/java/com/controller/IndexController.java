@@ -70,16 +70,13 @@ public class IndexController {
      * 个人中心
      * */
     @GetMapping("/user/center")
-    public String usercenter(){
+    public String usercenter(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String userid = (String) session.getAttribute("userid");
+        /**拦截器：如果不是用户角色登录，则进行重定向*/
+        if (StringUtils.isEmpty(userid)){
+            response.sendRedirect(request.getContextPath() + "/");//重定向
+        }
         return "/user/user-center";
-    }
-
-    /**
-     * 个人主页
-     * */
-    @GetMapping("/user/home")
-    public String userhome(){
-        return "/user/user-home";
     }
 
     /**

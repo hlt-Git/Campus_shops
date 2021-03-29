@@ -19,6 +19,7 @@
         <set>
             <if test="newstitle != null">newstitle = #{newstitle},</if>
             <if test="newsdesc != null">newsdesc = #{newsdesc},</if>
+            <if test="image != null">image = #{image},</if>
             <if test="newscontent != null">newscontent = #{newscontent},</if>
         </set>
         where id=#{id}
