@@ -56,6 +56,6 @@ logging:
       mapper: debug
 
 server:
-  port: 80
+  port: 1234
   session:
     timeout: 7200
