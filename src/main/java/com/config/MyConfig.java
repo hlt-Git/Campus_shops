@@ -24,6 +24,7 @@ public class MyConfig extends WebMvcConfigurerAdapter {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/admin/**")
                         .addPathPatterns("/user/center")
+                        .addPathPatterns("/user/perfectinfo")
                         .excludePathPatterns("/admin").
                         excludePathPatterns("/admin/login");
             }

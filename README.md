@@ -2,8 +2,14 @@
 
 # 导语
 
-### 项目数据库和部署视频，获取方式关注公众号：理木客，后台回复：shop 
+### 项目数据库和部署视频，获取方式
+### 关注公众号：理木客，后台回复：shop 
 ### 项目的数据文件请加QQ群：994793967  获取
+### QQ群：994793967 内会不定期上传项目源码和学习资料，群内也有考研的研友欢迎进群交流 :smile: 
+![](https://images.gitee.com/uploads/images/2021/0330/182006_9a40275f_3026905.jpeg "1.jpg")
+![](https://images.gitee.com/uploads/images/2021/0330/182017_93054a81_3026905.jpeg "2.jpg")
+![](https://images.gitee.com/uploads/images/2021/0330/182024_a36815c2_3026905.jpeg "3.jpg")
+
 ### 如需更多项目资源和学习资源，请加入此群：671408308
 ### 项目演示视频：[Springboot + Vue.js 的校园二手交易商城](https://www.bilibili.com/video/BV16X4y1V7ay/)
 ### 短信验证码及支付接口申请演示视频：[如何申请短信验证码接口和支付宝支付接口](https://www.bilibili.com/video/BV1Wh411Q76C/)

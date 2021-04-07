@@ -53,10 +53,6 @@ public class SoldrecordController {
     @GetMapping("/soldrecord/lookuser")
     public LayuiPageVo LookUserSold(int limit, int page, HttpSession session) {
         String userid = (String) session.getAttribute("userid");
-        //如果未登录，给一个假id
-        if(StringUtils.isEmpty(userid)){
-            userid = "123456";
-        }
         List<Soldrecord> soldrecordList = soldrecordService.queryAllSoldrecord((page - 1) * limit, limit, userid);
         Integer dataNumber = soldrecordService.querySoldCount(userid);
         return new LayuiPageVo("",0,dataNumber,soldrecordList);
