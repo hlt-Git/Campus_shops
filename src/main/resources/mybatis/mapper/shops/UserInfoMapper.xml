@@ -36,8 +36,8 @@
             <if test="sex != null">sex=#{sex},</if>
             <if test="school != null">school=#{school},</if>
             <if test="faculty != null">faculty=#{faculty},</if>
-            <if test="startime != null">startime=#{startime}</if>
-            <if test="userstatus != null">userstatus=#{userstatus}</if>
+            <if test="startime != null">startime=#{startime},</if>
+            <if test="userstatus != null">userstatus=#{userstatus},</if>
             <if test="status != null">status=#{status}</if>
         </set>
         where userid=#{userid}
