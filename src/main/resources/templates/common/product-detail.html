@@ -105,29 +105,29 @@
                         </h4>
                         <h4 style="margin-bottom:15px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                            style="background-color:#27B574">地&nbsp;址</button>&nbsp;&nbsp;<span th:text="${gddetail.school}" id="school"></span>
+                            style="background-color:#ff0434">地&nbsp;址</button>&nbsp;&nbsp;<span th:text="${gddetail.school}" id="school"></span>
                         </h4>
                         <h4 style="margin-bottom:15px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#27B574">标&nbsp;签</button>&nbsp;&nbsp;<span th:text="${gddetail.common}"></span>
+                                    style="background-color:#ff0434">标&nbsp;签</button>&nbsp;&nbsp;<span th:text="${gddetail.common}"></span>
                         </h4>
                         <h4 style="margin-bottom:15px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#27B574">日&nbsp;期</button>&nbsp;&nbsp;<span th:text="${#dates.format(gddetail.createtime,'yyyy-MM-dd')}"></span>
+                                    style="background-color:#ff0434">日&nbsp;期</button>&nbsp;&nbsp;<span th:text="${#dates.format(gddetail.createtime,'yyyy-MM-dd')}"></span>
                         </h4>
                         <h4 style="margin-bottom:15px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#27B574">浏&nbsp;览</button>&nbsp;&nbsp;<span th:text="${gddetail.rednumber}"></span>
+                                    style="background-color:#ff0434">浏&nbsp;览</button>&nbsp;&nbsp;<span th:text="${gddetail.rednumber}"></span>
                         </h4>
                         <div class="ps-product__shopping">
-                            <a class="ps-btn mb-10" style="cursor: pointer"
+                            <a class="ps-btn mb-10" style="cursor: pointer;background-color:#ff0434"
                                th:onclick="|ganxingqu()|">感兴趣<i class="ps-icon-next"></i></a>
                             <div class="ps-product__actions" id="shoucang"><!--点击收藏-->
                                 <a class="mr-10" onclick="dianjicllect(1)" style="cursor: pointer"><i class="ps-icon-heart"></i></a>
                             </div>
                             <div class="ps-product__actions" id="quxiaoshoucang" style="cursor: pointer"><!--点击取消收藏-->
                                 <a class="mr-10" onclick="dianjicllect(2)"
-                                style="background-color: #3AB87E"><i class="ps-icon-heart"></i></a>
+                                style="background-color: #ff0434"><i class="ps-icon-heart"></i></a>
                             </div>
                             <script>
                                 if(collectstatus===2){
@@ -164,7 +164,7 @@
                                 <div class="ps-shoes--carousel">
                                     <div class="ps-shoe">
                                         <div class="ps-shoe__thumbnail">
-                                            <div class="ps-badge"><span>New</span></div>
+                                            <div class="ps-badge" style="background-color:#ff0434"><span>New</span></div>
                                             <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                                             <img v-bind:src="commodity.image" alt="商品主图" style="height:300px">
                                             <a class="ps-shoe__overlay" :href="'/product-detail/'+commodity.commid"
