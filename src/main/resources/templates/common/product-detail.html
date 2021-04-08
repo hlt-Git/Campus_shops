@@ -5,7 +5,7 @@
 <html class="ie ie8"><![endif]-->
 <!--[if IE 9]>
 <html class="ie ie9"><![endif]-->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="ch">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <meta name="author" content="Nghia Minh Luong">
     <meta name="keywords" content="Default Description">
     <meta name="description" content="Default keyword">
-    <title>商品详情 | [[${gddetail.commname}]]</title>
+    <title>Product Detail | [[${gddetail.commname}]]</title>
     <!-- Fonts-->
     <link rel="stylesheet" th:href="@{/static/css/fontsgoogleapis.css}">
     <link rel="stylesheet" th:href="@{/static/plugins/font-awesome/css/font-awesome.min.css}">
@@ -54,12 +54,8 @@
 <body class="ie9 lt-ie10"><![endif]-->
 <body class="ps-loading">
 <div class="header--sidebar"></div>
-<header class="header">
-    <div th:include="~{index :: myheader}"></div>
-</header>
-<div class="header-services">
-    <div th:include="~{index :: myhdservices}"></div>
-</div>
+
+
 <main class="ps-main">
     <div class="test">
         <div class="container">
@@ -103,25 +99,25 @@
                                 <a href="#"><img th:src="${userinfo.uimage}" style="width:60px" class="layui-circle">&nbsp;<span th:text="${userinfo.username}" id="username"></span></a>
                             </div>
                         </h4>
-                        <h4 style="margin-bottom:15px">
+                        <h4 style="margin-bottom:24px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                            style="background-color:#ff0434">地&nbsp;址</button>&nbsp;&nbsp;<span th:text="${gddetail.school}" id="school"></span>
+                            style="background-color:#ff0434">Address</button>&nbsp;&nbsp;<span th:text="${gddetail.school}" id="school"></span>
                         </h4>
-                        <h4 style="margin-bottom:15px">
+                        <h4 style="margin-bottom:24px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#ff0434">标&nbsp;签</button>&nbsp;&nbsp;<span th:text="${gddetail.common}"></span>
+                                    style="background-color:#ff0434">Label</button>&nbsp;&nbsp;<span th:text="${gddetail.common}"></span>
                         </h4>
-                        <h4 style="margin-bottom:15px">
+                        <h4 style="margin-bottom:24px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#ff0434">日&nbsp;期</button>&nbsp;&nbsp;<span th:text="${#dates.format(gddetail.createtime,'yyyy-MM-dd')}"></span>
+                                    style="background-color:#ff0434">Date</button>&nbsp;&nbsp;<span th:text="${#dates.format(gddetail.createtime,'yyyy-MM-dd')}"></span>
                         </h4>
-                        <h4 style="margin-bottom:15px">
+                        <h4 style="margin-bottom:24px">
                             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius"
-                                    style="background-color:#ff0434">浏&nbsp;览</button>&nbsp;&nbsp;<span th:text="${gddetail.rednumber}"></span>
+                                    style="background-color:#ff0434">View</button>&nbsp;&nbsp;<span th:text="${gddetail.rednumber}"></span>
                         </h4>
                         <div class="ps-product__shopping">
                             <a class="ps-btn mb-10" style="cursor: pointer;background-color:#ff0434"
-                               th:onclick="|ganxingqu()|">感兴趣<i class="ps-icon-next"></i></a>
+                               th:onclick="|ganxingqu()|">interest<i class="ps-icon-next"></i></a>
                             <div class="ps-product__actions" id="shoucang"><!--点击收藏-->
                                 <a class="mr-10" onclick="dianjicllect(1)" style="cursor: pointer"><i class="ps-icon-heart"></i></a>
                             </div>
@@ -151,7 +147,7 @@
             <div class="ps-section__header mb-50">
                 <div class="row">
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-                        <h3 class="ps-section__title" data-mask="Related item">- 最新商品</h3>
+                        <h3 class="ps-section__title" data-mask="Related item">- Newest Goods</h3>
                     </div>
                 </div>
             </div>
